@@ -31,8 +31,12 @@ int plus(int a, int b);
 // pool path and name
 static const char *pool_name = "/mnt/pmem0/pmem_hash.data";
 
-static const size_t pool_size = 1024ul * 1024ul * 1024ul * 10ul;
-size_t segment_number = 256;
+// pool size
+static const size_t pool_size = 1024ul * 1024ul * 1024ul * 120ul;
+size_t segment_number = 2048 * 256; // for tpcc
+
+// static const size_t pool_size = 1024ul * 1024ul * 1024ul * 10ul;
+// size_t segment_number = 256;
 
 struct Dash {
     Hash<uint64_t>* inner;
@@ -55,18 +59,18 @@ void* dash_create(void) {
     // printf("+++\n");
 
     Dash* dash = new Dash;
-    // dash->inner = new extendible::Finger_EH<uint64_t>(segment_number, Allocator::Get()->pm_pool_);
+    dash->inner = new extendible::Finger_EH<uint64_t>(segment_number, Allocator::Get()->pm_pool_);
     // printf("+++\n");
-    dash->inner = reinterpret_cast<Hash<uint64_t> *>(
-        Allocator::GetRoot(sizeof(extendible::Finger_EH<uint64_t>)));
-    if (!file_exist) {
-    // During initialization phase, allocate 64 segments for Dash-EH
-    new (dash->inner) extendible::Finger_EH<uint64_t>(
-        segment_number, Allocator::Get()->pm_pool_);
-    } else {
-        new (dash->inner) extendible::Finger_EH<uint64_t>();
-        dash->inner->Recovery();
-    }
+    // dash->inner = reinterpret_cast<Hash<uint64_t> *>(
+    //     Allocator::GetRoot(sizeof(extendible::Finger_EH<uint64_t>)));
+    // if (!file_exist) {
+    // // During initialization phase, allocate 64 segments for Dash-EH
+    // new (dash->inner) extendible::Finger_EH<uint64_t>(
+    //     segment_number, Allocator::Get()->pm_pool_);
+    // } else {
+    //     new (dash->inner) extendible::Finger_EH<uint64_t>();
+    //     dash->inner->Recovery();
+    // }
     return (void*)(dash);
 }
 
