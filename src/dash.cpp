@@ -29,7 +29,7 @@ uint64_t dashstring_find(void* dash, const char* key, int length);
 int plus(int a, int b);
 }
 // pool path and name
-static const char *pool_name = "/mnt/pmem0/pmem_hash.data";
+static const char *pool_name = "/mnt/pmem1/pmem_hash.data";
 
 // pool size
 static const size_t pool_size = 1024ul * 1024ul * 1024ul * 120ul;
