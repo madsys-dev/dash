@@ -32,8 +32,8 @@ int plus(int a, int b);
 static const char *pool_name = "/mnt/pmem1/pmem_hash.data";
 
 // pool size
-static const size_t pool_size = 1024ul * 1024ul * 1024ul * 120ul;
-size_t segment_number = 2048 * 256; // for tpcc
+static const size_t pool_size = 1024ul * 1024ul * 1024ul * 16ul;
+size_t segment_number = 2048 * 32; // for tpcc
 
 // static const size_t pool_size = 1024ul * 1024ul * 1024ul * 10ul;
 // size_t segment_number = 256;
