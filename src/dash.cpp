@@ -10,7 +10,7 @@ extern "C" {
 
 struct Dash;
 
-void init(void);
+void init(const char* key);
 
 void* dash_create(void);
 int dash_insert(void* dash, uint64_t key, uint64_t value);
@@ -29,7 +29,7 @@ uint64_t dashstring_find(void* dash, const char* key, int length);
 int plus(int a, int b);
 }
 // pool path and name
-static const char *pool_name = "/mnt/pmem1/pmem_hash.data";
+static const char *pool_name = "/mnt/pme/pmem_hasa";
 
 // pool size
 static const size_t pool_size = 1024ul * 1024ul * 1024ul * 16ul;
@@ -47,7 +47,8 @@ int plus(int a, int b) {
 }
 bool file_exist = false;
 
-void init() {
+void init(const char* key) {
+    pool_name = key;
     if (FileExists(pool_name)) file_exist = true;
     Allocator::Initialize(pool_name, pool_size);
 }
